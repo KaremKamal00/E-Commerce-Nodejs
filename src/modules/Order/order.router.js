@@ -1,4 +1,4 @@
-import {Router} from 'express'
+import express,{Router} from 'express'
 import * as orderController from "./controller/order.controller.js"
 import * as orderValidation from "./order.validation.js"
 import * as orderEndPoints from "./order.endPoints.js"
@@ -26,6 +26,15 @@ router
         validation(orderValidation.orderSchema),
         orderController.deliverOrder
     )
+
+
+
+
+
+
+
+
+router.post('/webhook', express.raw({type: 'application/json'}),orderController.webHook );
 
 
 

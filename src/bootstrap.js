@@ -12,7 +12,16 @@ import { globalError } from "./utils/errorHandling.js";
 
 function bootstrap(app, express) {
   //Convert Buffer Data
-  app.use(express.json());
+  app.use((req,res,next)=>{
+    if(req.originalUrl=="/order/webhook"){
+      return next();
+    }
+  else{
+
+    express.json()(req,res,next);
+  }
+    
+  });
   app.use("/category", categoryRouter);
   app.use("/subCategory", subCategoryRouter);
   app.use("/brand", brandRouter);

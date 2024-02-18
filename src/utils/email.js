@@ -23,7 +23,7 @@ const sendEmail =async ({from=process.env.EMAIL,to,subject,cc,text,html,attachme
           attachments // html body
         });
       
-        console.log("Message sent: %s", info);
+        // console.log("Message sent: %s", info);
        
         return info.rejected.length?false:true
       

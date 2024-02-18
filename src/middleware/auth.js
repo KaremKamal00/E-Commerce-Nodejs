@@ -22,7 +22,7 @@ const auth=(role=Object.values(roles))=>{
         const token=authorization.split(process.env.BEARER_TOKEN)[1]
         
         const payload=jwt.verify(token,process.env.TOKEN_SIGNATURE)
-        console.log(payload);
+    
         if(!payload?._id){
             return next (new Error("Invalid payload",{cause:404}))
         }

@@ -71,7 +71,7 @@ export const updateCategory = asyncHandler(
     if (!category) {
       return next(new Error("Category No Found",{cause:404}))
     }
-    console.log(category);
+    
   
     if (req.body.name) {
       if (await categoryModel.findOne({ name: req.body.name })) {

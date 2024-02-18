@@ -7,7 +7,7 @@ export const asyncHandler = (fn) => {
 };
 
 export const globalError = (error, req, res, next) => {
-  // console.log("asdasdasda",req.validationResult);
+ 
   if(req.validationResult){
 
     return res.status(error.status||500).json({ message: error.message,details:req.validationResult.details });

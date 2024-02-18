@@ -5,6 +5,8 @@ import productModel from "../../../../DB/models/Product.model.js";
 import createInvoice from "../../../utils/createInvoice.js";
 import sendEmail from "../../../utils/email.js";
 import { asyncHandler } from "../../../utils/errorHandling.js";
+import payment from "../../../utils/payment.js";
+import Stripe from "stripe";
 
 
 //1-cart-Select proucts from cart
@@ -13,11 +15,7 @@ export const createOrder=asyncHandler(
     async (req,res,next)=>{
         const {_id}=req.user
         let {products,couponName}=req.body
-
-        const cart=await cartModel.findOne({userId:_id})
-        if(!cart?.products?.length){
-            return next(new Error("Cart not found",{cause:404}));
-        }
+        let amount=0
 
         let coupon={amount:0}
         if(couponName){
@@ -28,10 +26,20 @@ export const createOrder=asyncHandler(
 
         if (coupon.expireIn && coupon.expireIn.getTime() < new Date().getTime()) {
             return next(new Error("Coupon Expired", { cause: 400 }));
+
         }
+        amount=coupon.amount
+        req.body.couponId=coupon._id
         }
 
         if(!products?.length){
+
+            const cart=await cartModel.findOne({userId:_id})
+            if(!cart?.products?.length){
+                return next(new Error("Cart not found",{cause:404}));
+            }
+            // need to modify
+            
             products=cart.products.toObject()
         }
         const allProducts=[]
@@ -102,7 +110,45 @@ export const createOrder=asyncHandler(
                 application:"application/pdf"
             }
          ] })
-        return res.json({message:"Done",order})
+
+        //  if payment card
+         if(order.paymentTypes="card"){
+            const stripe=new Stripe(process.env.STRIPE_KEY);
+            let couponStripe
+            if(couponName){
+                couponStripe=await stripe.coupons.create({
+                    percent_off:amount,
+                    duration:"once"
+                })
+            }
+
+            const session=await payment({
+                metadata:{
+                    orderid: order._id.toString(),
+                },
+                discounts: amount ? [{ coupon: couponStripe.id }] : [],
+                success_url:`${process.env.SUCCUESS_URL}/${order._id}`,
+                cancel_url:`${process.env.CANCEL_URL}/${order._id}`,
+                customer_email:req.user.email,
+                line_items:order.products.map((element)=>{
+                    return{
+                
+                                    price_data:{
+                                        currency:"usd",
+                                        product_data:{
+                                            name:element.name
+                                        },
+                                        unit_amount:element.unitPrice*100
+                                    },
+                                    quantity:element.quantity
+                        
+                    }
+                })
+            })
+            return res.json({message:"Done",order,session})
+          }
+
+          return res.json({message:"Done",order})
     }
 )
 
@@ -133,7 +179,7 @@ export const cancelOrder=asyncHandler(
             await couponModel.updateOne({_id:order.couponId},{$pull:{usedBy:req.user._id}})
         }
         
-        console.log("aaab");
+    
 
         const updateOrder=await orderModel.updateOne({_id:orderId},{status:'cancel',updatedBy:req.user._id})
         

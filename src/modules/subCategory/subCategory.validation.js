@@ -15,7 +15,7 @@ export const tokenSchema=joi.object({
 export const createSubCategorySchema=joi.object({
     categoryId:generalFields.id,
     name:joi.string().required().max(20).min(3),
-    // file:generalFields.file
+    file:generalFields.file
 }).required()
 
 

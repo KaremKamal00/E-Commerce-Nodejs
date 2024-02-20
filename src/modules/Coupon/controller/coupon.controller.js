@@ -3,7 +3,7 @@ import cloudinary from "../../../utils/cloudinary.js";
 import { asyncHandler } from "../../../utils/errorHandling.js";
 
 
-
+//Create Coupon
 export const createCoupon=asyncHandler(
     async (req,res,next)=>{
         const { name } = req.body;
@@ -64,7 +64,7 @@ export const updateCoupon = asyncHandler(
     const { couponId } = req.params;
     const coupon = await couponModel.findById({ _id: couponId });
     if (!coupon) {
-      return next(new Error("Category No Found",{cause:404}))
+      return next(new Error("Coupon No Found",{cause:404}))
     }
   
     if (req.body.name) {

@@ -58,7 +58,7 @@ export const getSubCategory = asyncHandler(
       path:'categoryId'
     }])
     if (!subCategory) {
-      return next(new Error("Category No Found",{cause:404}))
+      return next(new Error("subCategory No Found",{cause:404}))
     }
     return res.status(200).json({ message: "Done", subCategory });
   }

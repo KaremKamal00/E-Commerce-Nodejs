@@ -182,7 +182,7 @@ export const logIn = asyncHandler(async (req, res, next) => {
 });
 
 
-//forgetPassword
+//sendCode
 export const sendCode=asyncHandler(
   async (req,res,next)=>{
     //get email
@@ -216,6 +216,7 @@ export const sendCode=asyncHandler(
   }
 )
 
+//forgetPassword
 export const forgetPassword=asyncHandler(
   async(req,res,next)=>{
     //get email and Code

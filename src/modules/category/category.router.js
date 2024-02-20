@@ -29,6 +29,7 @@ router
     )
     .put(
         "/:categoryId",
+        validation(categoryValidation.tokenSchema,true),
         auth(categoryEndPoints.update),
         uploadFileCloud({customValidtion:filevalidtion.image}).single('image'),
         categoryController.updateCategory

@@ -23,12 +23,15 @@ router
     )
     .get(
         "/:subCategoryId",
+        // validation(subCategoryValidation.getSubCategorySchema),
         subCategoryController.getSubCategory
     )
     .put(
         "/:subCategoryId",
+        validation(subCategoryValidation.tokenSchema,true),
         auth(subCategoryEndPoints.update),
         uploadFileCloud({customValidtion:filevalidtion.image}).single('image'),
+        // validation(subCategoryValidation.updateSubCategorySchema),
         subCategoryController.updateSubCategory
     )
 

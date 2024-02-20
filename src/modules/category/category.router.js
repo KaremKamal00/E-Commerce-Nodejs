@@ -32,6 +32,7 @@ router
         validation(categoryValidation.tokenSchema,true),
         auth(categoryEndPoints.update),
         uploadFileCloud({customValidtion:filevalidtion.image}).single('image'),
+        validation(categoryValidation.updateCategorySchema),
         categoryController.updateCategory
     )
     .use("/:categoryId/subCategory",subCategoryRouter)

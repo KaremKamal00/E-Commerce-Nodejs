@@ -18,6 +18,7 @@ export const createCategorySchema=joi.object({
 
 
 export const updateCategorySchema=joi.object({
+    categoryId:generalFields.id,
     name:joi.string().required().max(20).min(3),
-    image:generalFields.file
+    file:generalFields.file
 }).required()

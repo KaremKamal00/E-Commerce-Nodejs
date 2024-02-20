@@ -9,7 +9,7 @@ const generalFields={
     email:joi.string().email({ tlds: { allow: ['com','net'] } }).required(),
     id:joi.string().custom(idValidition).required(),
     _id:joi.string().custom(idValidition),
-    password:joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
+    password:joi.string().pattern(new RegExp(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/)).required(),
     authorization:joi.string().required(),
     userName:joi.string().min(3).max(15).required(),
 

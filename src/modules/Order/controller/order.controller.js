@@ -226,11 +226,11 @@ export const webHook=asyncHandler(async (req, res,next) => {
   }
 
   // Handle the event
-  if (event.type=='checkout.session.completed') {
+  if (event.type == 'checkout.session.completed') {
     let orderId=event.data.object.metadata.orderId
 
     const updateOrder=await orderModel.updateOne({_id:orderId},{status:"placed"});
     return res.status(200).json({message:"Done"})
-  }
+  } 
   return next(new Error("failed To payment",{cause:500}))
 })

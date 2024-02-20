@@ -99,6 +99,7 @@ export const confirmEmail = asyncHandler(async (req, res, next) => {
 //refreshEmail
 export const refreshEmail = asyncHandler(async (req, res, next) => {
   //verify token
+  const { token } = req.params
   const { email } = verifyToken({
     token,
     signature: process.env.SIGNUP_TOKEN_SIGNATURE,

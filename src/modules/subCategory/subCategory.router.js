@@ -23,7 +23,7 @@ router
     )
     .get(
         "/:subCategoryId",
-        // validation(subCategoryValidation.getSubCategorySchema),
+        validation(subCategoryValidation.getSubCategorySchema),
         subCategoryController.getSubCategory
     )
     .put(

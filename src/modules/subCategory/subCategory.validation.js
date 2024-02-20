@@ -2,8 +2,7 @@ import joi from "joi";
 import generalFields from "../../utils/generalFields.js";
 
 export const getSubCategorySchema=joi.object({
-subCategoryId:generalFields.id,
-categoryId:generalFields.id
+subCategoryId:generalFields.id
 }).required()
 
 

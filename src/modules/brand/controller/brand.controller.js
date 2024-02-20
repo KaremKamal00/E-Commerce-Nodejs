@@ -59,7 +59,7 @@ export const updateBrand = asyncHandler(
     const { brandId } = req.params;
     const brand = await brandModel.findById({ _id: brandId });
     if (!brand) {
-      return next(new Error("Brand No Found",{cause:404}))
+      return next(new Error("Brand Not Found",{cause:404}))
     }
   
     if (req.body.name) {

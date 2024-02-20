@@ -14,7 +14,7 @@ router
     validation(subCategoryValidation.tokenSchema,true),
     auth(subCategoryEndPoints.create),
     uploadFileCloud({customValidtion:filevalidtion.image}).single('image'),
-    validation(subCategoryValidation.createSubCategory),
+    validation(subCategoryValidation.createSubCategorySchema),
     subCategoryController.createSubCategory
     )
     .get(

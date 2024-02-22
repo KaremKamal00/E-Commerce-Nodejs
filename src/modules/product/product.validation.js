@@ -33,12 +33,12 @@ export const updateProductSchema=joi.object({
     discount:joi.number().positive(),
     colors:joi.array(),
     size:joi.array(),
-    files:joi.object({
+    file:joi.object({
         mainImage:joi.array().items(generalFields.file.required()).length(1),
         subImages:joi.array().items(generalFields.file.required()).min(0).max(6)
     }),
     productId:generalFields.id,
-    // categoryId:generalFields._id,
+    categoryId:generalFields._id,
     subCategoryId:generalFields._id,
     brandId:generalFields._id
     

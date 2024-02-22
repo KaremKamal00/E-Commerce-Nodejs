@@ -54,26 +54,8 @@ export const createProduct=asyncHandler(
           }
           req.body.mainImage = { secure_url, public_id };
           
-
           //6-check sub image
-          // if(req.files.subImage?.length){
-          //   let images=[]
-          //   for (const image of req.files.subImages) {
-              
-          //       const { secure_url, public_id } = await cloudinary.uploader.upload(
-          //           image.path,
-          //           { folder: `${process.env.APP_NAME}/Prouct/${req.body.customId}/subImage` }
-          //         );
-          //         if (!secure_url) {
-          //           return next(new Error("Iamge Not Found", { cause: 400 }));
-          //         }
-          //         images.push({ secure_url, public_id })
-          //   }
-
-          //   req.body.subImages = images;
-            
-          // }
-
+         
           if(req.files?.subImages){
             req.body.subImages=[]
             for (const file of req.files.subImages) {

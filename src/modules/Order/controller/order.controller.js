@@ -80,7 +80,10 @@ export const createOrder=asyncHandler(
         req.body.products=allProducts
         req.body.subPrice=subPrice
         req.body.finalPrice=subPrice - (subPrice * coupon?.amount)/100
-        const order=await orderModel.create(req.body)
+        req.body.status=req.body.paymentMethod=="cash"?"placed":"waitForPayment"
+        const order=await orderModel.create(
+            req.body,
+            )
         if(couponName){
             await couponModel.updateOne({_id:coupon._id},{$push:{usedBy:_id}})
         }

@@ -97,3 +97,20 @@ export const updateCoupon = asyncHandler(
     return res.status(200).json({ message: "Done", updatedCOUPON });
   }
 )
+
+//delete coupon
+export const deleteCoupon=asyncHandler(
+  async (req,res,next)=>{
+      
+      const {couponId}=req.params
+      const coupon=await couponModel.findOne({_id:couponId})
+      if(!coupon){
+          return next(new Error("coupon Not Found",{cause:404}));
+      }
+
+
+      const deletecoupon = await couponModel.findOneAndDelete({_id:couponId})
+      return res.status(200).json({message:"Done"})
+
+  }
+)

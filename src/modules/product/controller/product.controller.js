@@ -12,7 +12,7 @@ import cloudinary from "../../../utils/cloudinary.js";
 
 
 
-
+//Create Product
 export const createProduct=asyncHandler(
     async(req,res,next)=>{
         //1-get categoryId,SubcategoryId,brandId
@@ -82,7 +82,7 @@ export const createProduct=asyncHandler(
     }
 )
 
-
+//Update Product
 export const updateProduct=asyncHandler(
   async(req,res,next)=>{
 
@@ -160,7 +160,7 @@ export const updateProduct=asyncHandler(
   }
 )
 
-
+//Get Products
 export const getProducts=asyncHandler(
   async(req,res,next)=>{
     const products=await productModel.find({})
@@ -168,7 +168,7 @@ export const getProducts=asyncHandler(
   }
 )
 
-
+//Get OneProduct
 export const getOneProducts=asyncHandler(
   async(req,res,next)=>{
     const {productId}=req.params
@@ -178,28 +178,20 @@ export const getOneProducts=asyncHandler(
 )
 
 
+//delete product
+export const deleteProduct=asyncHandler(
+  async (req,res,next)=>{
+      
+      const {productId}=req.params
+      const product=await productModel.findOne({_id:productId})
+      if(!product){
+          return next(new Error("product Not Found",{cause:404}));
+      }
 
 
+      const deleteProduct = await productModel.findOneAndDelete({_id:productId})
+      return res.status(200).json({message:"Done"})
 
+  }
+)
 
-
-
-
-  //6-check sub image
-        // if(req.files.subImage?.length){
-        //   let images=[]
-        //   for (const image of req.files.subImages) {
-            
-        //       const { secure_url, public_id } = await cloudinary.uploader.upload(
-        //           image.path,
-        //           { folder: `${process.env.APP_NAME}/Prouct/${req.body.customId}/subImage` }
-        //         );
-        //         if (!secure_url) {
-        //           return next(new Error("Iamge Not Found", { cause: 400 }));
-        //         }
-        //         images.push({ secure_url, public_id })
-        //   }
-
-        //   req.body.subImages = images;
-          
-        // }

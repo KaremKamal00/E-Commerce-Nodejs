@@ -34,6 +34,12 @@ router
         validation(couponValidation.updateCouponSchema),
         couponController.updateCoupon
     )
+    .delete(
+        "/:couponId",
+        validation(couponValidation.tokenSchema,true),
+        auth(couponEndPoints.delete),
+        couponController.deleteCoupon
+        )
 
 
 

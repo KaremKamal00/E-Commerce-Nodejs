@@ -13,6 +13,7 @@ router
         '/',
         validation(cartValidation.tokenSchema,true),
         auth(cartEndPoints.addToCart),
+        validation(cartValidation.addToCartSchema),
         cartController.addToCart,
     )
     .patch(

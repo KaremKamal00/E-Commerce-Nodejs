@@ -19,6 +19,12 @@ router
         validation(uservalidtion.userSchema),
         userController.removeFromWishList
     )
+    .delete(
+        "/:userId",
+        validation(uservalidtion.tokenSchema,true),
+        auth(userEndPoints.delete),
+        userController.deleteUser
+        )
 
 
 

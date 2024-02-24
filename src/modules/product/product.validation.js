@@ -29,7 +29,7 @@ export const updateProductSchema=joi.object({
     name:joi.string().min(3).max(30),
     description:joi.string().min(3).max(70),
     price:joi.number().positive(),
-    stock:joi.number().positive().integer(),
+    stock:joi.number().positive(),
     discount:joi.number().positive(),
     colors:joi.array(),
     size:joi.array(),

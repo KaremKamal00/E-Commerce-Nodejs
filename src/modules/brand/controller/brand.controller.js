@@ -90,3 +90,21 @@ export const updateBrand = asyncHandler(
     return res.status(200).json({ message: "Done", updatedBrand });
   }
 )
+
+
+//delete Brand
+export const deleteBrand=asyncHandler(
+  async (req,res,next)=>{
+      
+      const {brandId}=req.params
+      const brand=await brandModel.findOne({_id:brandId})
+      if(!brand){
+          return next(new Error("brand Not Found",{cause:404}));
+      }
+
+
+      const deletebrand = await brandModel.findOneAndDelete({_id:brandId})
+      return res.status(200).json({message:"Done"})
+
+  }
+)

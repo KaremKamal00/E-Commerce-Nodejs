@@ -41,6 +41,12 @@ router
         '/:productId',
         productController.getOneProducts
     )
+    .delete(
+        "/:productId",
+        validation(productValiation.tokenSchema,true),
+        auth(productEndPoints.delete),
+        productController.deleteProduct
+        )
     
 
 

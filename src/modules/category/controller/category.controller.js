@@ -101,3 +101,20 @@ export const updateCategory = asyncHandler(
     return res.status(200).json({ message: "Done", updatedCategory });
   }
 )
+
+//delete category
+export const deleteCategory=asyncHandler(
+  async (req,res,next)=>{
+      
+      const {categoryId}=req.params
+      const category=await categoryModel.findOne({_id:categoryId})
+      if(!category){
+          return next(new Error("category Not Found",{cause:404}));
+      }
+
+
+      const deletecategory = await categoryModel.findOneAndDelete({_id:categoryId})
+      return res.status(200).json({message:"Done"})
+
+  }
+)

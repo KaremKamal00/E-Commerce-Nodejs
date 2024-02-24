@@ -35,6 +35,12 @@ router
         validation(brandValidation.updateBrandSchema),
         brandController.updateBrand
     )
+    .delete(
+        "/:brandId",
+        validation(brandValidation.tokenSchema,true),
+        auth(brandEndPoints.delete),
+        brandController.deleteBrand
+        )
 
 
 

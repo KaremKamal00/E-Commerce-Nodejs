@@ -104,7 +104,6 @@ export const updateSubCategory = asyncHandler(
 )
 
 
-
 //delete subCategory
 export const deleteSubcategory=asyncHandler(
   async (req,res,next)=>{

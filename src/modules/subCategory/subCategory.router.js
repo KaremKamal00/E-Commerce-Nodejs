@@ -34,6 +34,12 @@ router
         // validation(subCategoryValidation.updateSubCategorySchema),
         subCategoryController.updateSubCategory
     )
+    .delete(
+        "/:subCategoryId",
+        validation(subCategoryValidation.tokenSchema,true),
+        auth(subCategoryEndPoints.delete),
+        subCategoryController.deleteSubcategory
+        )
 
 
 
